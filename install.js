@@ -14,6 +14,13 @@
   GRANTS.push({ label: 'التشغيل في الخلفية (يبدأ مع السيارة)', cmd: 'appops set ' + PKG + ' RUN_IN_BACKGROUND allow', optional: true });
   GRANTS.push({ label: 'التشغيل في الخلفية دائماً', cmd: 'appops set ' + PKG + ' RUN_ANY_IN_BACKGROUND allow', optional: true });
 
+  GRANTS.push({ label: 'الإشعارات: البدء مع السيارة (قارئ الإشعارات)', cmd: 'cmd notification allow_listener ' + PKG + '/' + PKG + '.BootListener', optional: true });
+  ['CAR_SPEED', 'CAR_ENERGY', 'CAR_MILEAGE', 'CAR_POWERTRAIN', 'CAR_INFO', 'CAR_EXTERIOR_ENVIRONMENT'].forEach(function (p) {
+    GRANTS.push({ label: 'بيانات السيارة: ' + p, cmd: 'pm grant ' + PKG + ' android.car.permission.' + p, optional: true });
+  });
+  GRANTS.push({ label: 'الموقع (الطقس والصلاة)', cmd: 'pm grant ' + PKG + ' android.permission.ACCESS_FINE_LOCATION', optional: true });
+  GRANTS.push({ label: 'الموقع التقريبي', cmd: 'pm grant ' + PKG + ' android.permission.ACCESS_COARSE_LOCATION', optional: true });
+
   function $(id) { return document.getElementById(id); }
   var statusEl = $('status'), connectBtn = $('connect'), installBtn = $('install'), logEl = $('log');
   var latest = null, car = null, busy = false;
